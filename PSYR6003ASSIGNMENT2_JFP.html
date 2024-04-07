@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Julia Fraiha Pegado">
+
+<title>PSYR6003 ASSIGNMENT2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/quarto.js"></script>
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/popper.min.js"></script>
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/anchor.min.js"></script>
+<link href="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PSYR6003ASSIGNMENT2_JFP_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="PSYR6003ASSIGNMENT2_JFP_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="PSYR6003ASSIGNMENT2_JFP_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="PSYR6003ASSIGNMENT2_JFP_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">PSYR6003 ASSIGNMENT2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julia Fraiha Pegado </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+</section>
+<section id="quarto-1" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-1">Quarto</h2>
+<p>The present data analysis was based on the “PSYR6003.A2.sav” fictional data set created and published by Dr.&nbsp;Igor Yakovenko. This file contained 137 undergraduate student respondents and is composed of measures of 1) socially prescribed perfectionism (SPP) using the Multidimensional Perfectionism Scale Short Form: Socially Prescribed Subscale (3-year version); 2) negative affect assessed by the PANAS: Negative Affect (3-year version); and conscientiousness measured using the Ten Item Personality Measure: Conscientiousness Subscale (3-year version). Interested on the topic we decided to clone the repository to conduct an exploratory analysis to assess the relationship of responses of among the scales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># to tidy up the data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># to manipulate and clean data </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># for writing &amp; reading SPSS/SAV files</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flexplot) <span class="co"># to plot data using the best fit graphical tool</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'flexplot'
+
+The following object is masked from 'package:ggplot2':
+
+    flip_data</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) <span class="co">#this allows us to combine several lines of code and run them at once</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'MASS'
+
+The following object is masked from 'package:patchwork':
+
+    area
+
+The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables) <span class="co"># generates tables formatted into APA style</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Data Initialization &amp; Cleaning</strong></p>
+<p>The data set was then loaded into the software package R (Version 4.2.3) running on the integrated environment RStudio (Version 2023.12.1.402). We used the package “haven” (cite, year) to upload the data into the directory. After the loading process, the data set was put into an object.</p>
+<p>Before starting the analysis, we conducted a visual inspection of the data to detect any errors, extraneous or missing values. To manage this data set, we used the package “tidyverse” (Wickham et al., 2019). Visual inspection revealed that 5 of the cases had missing values (NAs), which we decided to omit to ensure accuracy and reliability of the analysis. In addition, for the purposes of this analysis we decided to consider sex in a binary context, so we created a new variable filtering the data to only include “male” and “female” cases, omitting one participant who identified as “other”. Upon removing the previously discussed cases our final sample decreased by 6 (n=131).</p>
+<p>In order include the binary sex of participants into our analysis we transformed this categorical variable into a factor variable. The binary sex variable was also mutated into a numerical format (“female” =0, “male” =1) using package “dplyr” (Wickham et al., 2019). Lastly, we reverse-coded the variable “tipm.CONS2.3y” prior to gathering descriptive statistics of the variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#To initialize the data we use the following lines of code</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co">#this package allows us to work with sav files</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>DAT<span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"PSYR6003.A2.sav"</span>)<span class="co">#this puts the data set into an object</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>DATA<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(DAT)<span class="co">#omit missing cases</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>DATA<span class="ot">&lt;-</span> <span class="fu">filter</span>(DATA, sex <span class="sc">==</span> <span class="st">"Male"</span> <span class="sc">|</span> sex <span class="sc">==</span> <span class="st">"Female"</span>)<span class="co">#this excludes the case "Other (specify)"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>DATA<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(DATA)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DATA)<span class="co">#this runs the data and ensures it is working after the changesS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 131 × 21
+   RespondentId sex    mps.SPP1.3y mps.SPP2.3y mps.SPP3.3y mps.SPP4.3y
+   &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+ 1 4561355      Female           1           1           1           1
+ 2 4561556      Female           1           5           1           1
+ 3 4198369      Male             5           1           1           4
+ 4 4590305      Female           1           3           4           1
+ 5 4554366      Female           2           6           3           1
+ 6 4598695      Female           1           7           1           7
+ 7 4005938      Female           4           3           1           1
+ 8 4563966      Female           3           5           3           5
+ 9 4213635      Female           2           5           1           1
+10 4556259      Female           2           5           1           1
+# ℹ 121 more rows
+# ℹ 15 more variables: mps.SPP5.3y &lt;dbl&gt;, guilt1.3y &lt;dbl&gt;, guilt2.3y &lt;dbl&gt;,
+#   guilt3.3y &lt;dbl&gt;, dep1.3y &lt;dbl&gt;, dep2.3y &lt;dbl&gt;, dep3.3y &lt;dbl&gt;,
+#   fear1.3y &lt;dbl&gt;, fear2.3y &lt;dbl&gt;, fear3.3y &lt;dbl&gt;, host1.3y &lt;dbl&gt;,
+#   host2.3y &lt;dbl&gt;, host3.3y &lt;dbl&gt;, tipm.CONS1.3y &lt;dbl&gt;, tipm.CONS2.3y &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(DATA<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#To check if the variable "sex" is a factor variable; which it is not, so we must transform it</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>DATA<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(DATA<span class="sc">$</span>sex)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#this transform the string variable into a factor</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(DATA)<span class="co">#this allows us to visualize the change</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 131 × 21
+   RespondentId sex    mps.SPP1.3y mps.SPP2.3y mps.SPP3.3y mps.SPP4.3y
+   &lt;chr&gt;        &lt;fct&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+ 1 4561355      Female           1           1           1           1
+ 2 4561556      Female           1           5           1           1
+ 3 4198369      Male             5           1           1           4
+ 4 4590305      Female           1           3           4           1
+ 5 4554366      Female           2           6           3           1
+ 6 4598695      Female           1           7           1           7
+ 7 4005938      Female           4           3           1           1
+ 8 4563966      Female           3           5           3           5
+ 9 4213635      Female           2           5           1           1
+10 4556259      Female           2           5           1           1
+# ℹ 121 more rows
+# ℹ 15 more variables: mps.SPP5.3y &lt;dbl&gt;, guilt1.3y &lt;dbl&gt;, guilt2.3y &lt;dbl&gt;,
+#   guilt3.3y &lt;dbl&gt;, dep1.3y &lt;dbl&gt;, dep2.3y &lt;dbl&gt;, dep3.3y &lt;dbl&gt;,
+#   fear1.3y &lt;dbl&gt;, fear2.3y &lt;dbl&gt;, fear3.3y &lt;dbl&gt;, host1.3y &lt;dbl&gt;,
+#   host2.3y &lt;dbl&gt;, host3.3y &lt;dbl&gt;, tipm.CONS1.3y &lt;dbl&gt;, tipm.CONS2.3y &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(DATA<span class="sc">$</span>sex)<span class="co">#this double checks if it truly worked</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#FILTER FOR NON-BINARY</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>NewDATA <span class="ot">&lt;-</span> DATA <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex_binary =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>, <span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#this codes "Female" cases into "0" and "Male" cases into "1"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to reverse code we use the following </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>NewDATA1 <span class="ot">&lt;-</span> NewDATA <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"tipm.CONS2.3y"</span>), <span class="sc">~</span> <span class="dv">8</span> <span class="sc">-</span> .))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(NewDATA1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Descriptive Statistics &amp; Bivariate Correlations</strong></p>
+<p>To determine how individuals performed in average in each of the dimension, we gathered summary statistics and bivariate correlations for the scales and binary sex. We decided to create 3 new objects comprised of the means of participant response for each item across the scales. We did so by using the package “dplyr” (Wickham et al., 2019). Subsequently we used the package “apaTables” (Stanley, 2021) to obtain a table containing the descriptive statistics and bivariate correlations.</p>
+<p>We gathered the mean (<em>M</em>) and standard deviation (<em>SD</em>) values for binary sex (<em>M</em>=0.15, <em>SD</em>=0.35), SPP (<em>M</em>=4.38, <em>SD</em>=1.43), conscientiousness (<em>M</em>=5.03, <em>SD</em>=1.29), and negative affect (<em>M</em>=2.44, <em>SD</em>=0.98). We encountered no bivariate relationship between binary sex and SPP (<em>r</em> (129) = .01, <em>p</em> &lt;.05), conscientiousness (<em>r</em> (129) = -.14, <em>p</em> &lt;.05), nor negative affect (<em>r</em> (129) = -.16, <em>p</em> &lt;.05).</p>
+<p>The results of suggest that SPP is negatively correlated with conscientiousness (<em>r</em> (129) = -.21, <em>p</em> &lt;.05), while it is also positively correlated with negative affect (<em>r</em> (129) = .37, <em>p</em> &lt;.01). This suggests that those who experience SPP are less conscientious and more likely to experience negative affect. Additionally, negative affect was negatively correlated with conscientiousness (<em>r</em> (129) =- .37, <em>p</em> &lt;.01), indicating that individuals who experience negative affect may be less conscientious.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) <span class="co">#we will need this libary in order to get the means across all the scales</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>NewDATA2 <span class="ot">&lt;-</span> NewDATA1 <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MPS.M =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"mps"</span>))),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">TIPM.M =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"tipm"</span>))),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">PANAS.M =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(guilt1<span class="fl">.3</span>y <span class="sc">:</span> host3<span class="fl">.3</span>y)))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#this calculates the means of the following: MPS, TIPM, PANAS</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#We want to select only the variables that we are interested in,</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>WORKDATA <span class="ot">&lt;-</span>NewDATA2 <span class="sc">%&gt;%</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sex_binary, MPS.M, TIPM.M, PANAS.M)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)  <span class="co"># we need this package to get our descriptives table</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> <span class="fu">apa.cor.table</span>(WORKDATA, </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">table.number=</span><span class="dv">1</span>, <span class="at">filename=</span><span class="st">"Table_1.doc"</span>) <span class="co">#This creates our table for M and SD of all variables and saves it</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table1) <span class="co">#we can vizualize the data in here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table 1 
+
+Means, standard deviations, and correlations with confidence intervals
+ 
+
+  Variable      M    SD   1           2            3           
+  1. sex_binary 0.15 0.35                                      
+                                                               
+  2. MPS.M      4.38 1.43 .01                                  
+                          [-.16, .18]                          
+                                                               
+  3. TIPM.M     5.03 1.29 -.14        -.21*                    
+                          [-.30, .03] [-.37, -.04]             
+                                                               
+  4. PANAS.M    2.44 0.98 -.16        .37**        -.37**      
+                          [-.32, .01] [.21, .51]   [-.51, -.22]
+                                                               
+
+Note. M and SD are used to represent mean and standard deviation, respectively.
+Values in square brackets indicate the 95% confidence interval.
+The confidence interval is a plausible range of population correlations 
+that could have caused the sample correlation (Cumming, 2014).
+ * indicates p &lt; .05. ** indicates p &lt; .01.
+ </code></pre>
+</div>
+</div>
+<p><em>Hypothesis 1:</em></p>
+<p><strong>Model Building and Statistical Assumptions</strong></p>
+<p>Interested on whether binary sex, conscientiousness and SPP significantly predict negative affect. First, we hypothesized that women would experience higher negative affect and SPP, while being less conscientious than men. To check if our hypothesis was correct, we created a model using the package “flexplot” (Fife, 2022).</p>
+<p><strong>Univariate Distribution</strong></p>
+<p>First, we created univariate plots to visualize the data using the package “patchwork” (Pedersen, 2024) When analyzing the univariate distribution of the variables (Figure 1) we noted that the measure of negative affect is asymmetric with a right skew, indicating that most undergraduate students scored lower in this scale. SPP is appears to be bimodal and slightly left skewed, suggesting that some students scored lower in this measure, however, most seemed to score above the average. Conscientiousness appeared to be approximately normally distributed but left skewed, which can be attributed to students scoring high on this measure. Finally, the binary sex distribution reveled that most undergraduate students identified as female (or “0”).</p>
+<p><strong>Model and Diagnostics</strong></p>
+<p>We visualized the full model (Figure 2), which indicated that a right skewed data set. Since this violates the assumption of normality, linearity and homoskedasticity, so we decided to run a sensitivity analysis using the package “MASS” (Venables &amp; Ripley, 2002).&nbsp; After running a sensitivity test for normality, it seems like that there is a slight change we are comparing the two. When checking for sensitivity for linearity, since our plot had curvilinear effect, we test this model using the quadratic method. The assumption of homoskedasticity was also violated, which we could mitigate using one of the following: 1) transform the dependent variable; 2) use weighted least squares (WLS); 3) find robust standard errors; or 4) use generalized least squares (GLS). However, for the purposes of this analysis we will disregard this assumption violation.</p>
+<p><strong>Results</strong></p>
+<p>To conclude our analysis, we used the package “flexplot” (Fife, 2022) to give us the estimates of the model. According to this the full model (Table 2) explains roughly 27% of the variance in negative affect. This suggests a large effect of sex, conscientiousness and socially prescribed perfectionism in predicting negative affect. The semi-partial R<sup>2</sup> shows us that conscientiousness is the variable that explains the most effect on negative affect, accounting for ~16%, followed by SPP (8%) and sex (~3%).</p>
+<p>The estimates suggest that for every 1-point increase in negative affect, there is a 0.26 decrease in conscientiousness. Inversely, for every 1-point increase in negative affect, we observed a 0.20 increase in SPP. Finally, every point increase, a 0.58 decrease is seen in sex, indicating that females are more likely to experience negative affect.</p>
+<p>Overall, we can conclude that sex and SPP positively impact negatively affect, while the opposite is true for conscientiousness.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flexplot)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#H1</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span> <span class="fu">flexplot</span>(PANAS.M<span class="sc">~</span><span class="dv">1</span>, <span class="at">data=</span> NewDATA2)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span> <span class="fu">flexplot</span>(MPS.M<span class="sc">~</span><span class="dv">1</span>, <span class="at">data=</span> NewDATA2)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>c<span class="ot">=</span> <span class="fu">flexplot</span>(TIPM.M<span class="sc">~</span><span class="dv">1</span>, <span class="at">data=</span> NewDATA2)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>d<span class="ot">=</span> <span class="fu">flexplot</span>(sex_binary<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> NewDATA2)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>a<span class="sc">+</span>b<span class="sc">+</span>c<span class="sc">+</span>d <span class="co"># these are the univariate distributions of each</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now we create our model</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>full<span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> PANAS.M <span class="sc">~</span> sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span>MPS.M,<span class="at">data=</span> NewDATA2 ) <span class="co">#create the full model</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">flexplot</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">|</span>MPS.M<span class="sc">+</span>TIPM.M, <span class="at">data=</span>NewDATA2, <span class="at">method =</span> <span class="st">"lm"</span>) <span class="co">#This is the full model to check if sex, conscientiousness and SPP significantly predict negative affect </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(full, <span class="at">plot =</span> <span class="st">"model"</span>) <span class="co">#to check the model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(full, <span class="at">plot =</span> <span class="st">"residuals"</span>) <span class="co">#to check the violations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Note: one or more of your variables has less than 5 values, yet they're treated as numeric.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#normality is violated so lets do a robust model</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>robust<span class="ot">&lt;-</span> <span class="fu">rlm</span>(<span class="at">formula =</span> PANAS.M <span class="sc">~</span> sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span>MPS.M,<span class="at">data=</span> NewDATA2 )</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(robust, <span class="at">plot=</span> <span class="st">"model"</span>) <span class="co">#so we run both this and the ful to compare them</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-7-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#linearity is violated so we do quadratic to check</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>quad<span class="ot">&lt;-</span><span class="fu">flexplot</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">|</span>MPS.M<span class="sc">+</span>TIPM.M, <span class="at">data=</span>WORKDATA, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="st">"quadratic"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Now we check our estimates and summaries</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">estimates</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model R squared:
+0.269 (0.14, 0.4)
+
+Semi-Partial R squared:
+sex_binary     TIPM.M      MPS.M 
+     0.025      0.159      0.084 
+
+
+Estimates for Numeric Variables = 
+    variables estimate lower upper std.estimate std.lower std.upper
+1 (Intercept)     2.93  2.09  3.77         0.00      0.00      0.00
+2  sex_binary    -0.58 -0.99 -0.16        -0.21     -0.36     -0.06
+3      TIPM.M    -0.26 -0.37 -0.14        -0.34     -0.49     -0.19
+4       MPS.M     0.20  0.10  0.31         0.30      0.14      0.45</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = PANAS.M ~ sex_binary + TIPM.M + MPS.M, data = NewDATA2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6989 -0.5926 -0.1454  0.5276  2.2597 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  2.92875    0.42671   6.864 2.65e-10 ***
+sex_binary  -0.57578    0.21146  -2.723 0.007381 ** 
+TIPM.M      -0.25746    0.05937  -4.337 2.92e-05 ***
+MPS.M        0.20323    0.05310   3.828 0.000202 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.844 on 127 degrees of freedom
+Multiple R-squared:  0.2689,    Adjusted R-squared:  0.2517 
+F-statistic: 15.57 on 3 and 127 DF,  p-value: 1.1e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create the regression table to illustrate this</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>basic.reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span>MPS.M, <span class="at">data =</span> WORKDATA,<span class="at">filename=</span><span class="st">"Table_2.doc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+ extra argument 'filename' will be disregarded</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa.reg.table</span>(basic.reg, <span class="at">table.number =</span> <span class="dv">2</span>, <span class="at">filename=</span><span class="st">"Table_2.doc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table 2 
+
+Regression results using PANAS.M as the criterion
+ 
+
+   Predictor       b       b_95%_CI  beta    beta_95%_CI sr2  sr2_95%_CI      r
+ (Intercept)  2.93**   [2.08, 3.77]                                            
+  sex_binary -0.58** [-0.99, -0.16] -0.21 [-0.36, -0.06] .04 [-.02, .10]   -.16
+      TIPM.M -0.26** [-0.37, -0.14] -0.34 [-0.49, -0.18] .11  [.02, .20] -.37**
+       MPS.M  0.20**   [0.10, 0.31]  0.30   [0.14, 0.45] .08  [.00, .17]  .37**
+                                                                               
+                                                                               
+                                                                               
+             Fit
+                
+                
+                
+                
+     R2 = .269**
+ 95% CI[.13,.37]
+                
+
+Note. A significant b-weight indicates the beta-weight and semi-partial correlation are also significant.
+b represents unstandardized regression weights. beta indicates the standardized regression weights. 
+sr2 represents the semi-partial correlation squared. r represents the zero-order correlation.
+Square brackets are used to enclose the lower and upper limits of a confidence interval.
+* indicates p &lt; .05. ** indicates p &lt; .01.
+ </code></pre>
+</div>
+</div>
+<p><em>Hypothesis 2</em></p>
+<p><strong>Model Building and Statistical Assumptions</strong></p>
+<p>After checking our first hypothesis we were curious to determine if SPP would predict a unique variance in negative affect over and above sex and conscientiousness. Since our variable of interest was SPP, we wanted to see if after controlling for conscientiousness and binary sex, we would still predict negative affect. We started by creating a quadratic added plot (Figure 3) to see the fit of our data, using the package “flexplot” (Fife, 2022). Upon doing so we can see that this is a better fit for our data.</p>
+<p>To determine if the current data violates any of the assumptions, we visualized the plot containing the residuals (Figure 4). Overall, the assumptions were partially not supported as despite looking somewhat normally distributed, the model violates normality as it is slightly right skewed. Linearity is also violated, and for that reason we have fitted the data in a quadratic, which improved the fit of our model. Finally, the assumption of homoskedasticity was not met as it can be seen by both the R-D and S-L plots consistent with the added-variable plot we have generated with the package “flexplot” (Fife, 2022) (Figure 5).</p>
+<p><strong>Results</strong></p>
+<p>To determine if the SPP variable did in fact predict a unique variance in negative affect over and above sex and conscientiousness, we created a reduced model isolated these control variables. We then used “flexplot” (Fife, 2022) to do a model comparison between the full (including SPP), and the reduced (excluding SPP) models. Model comparison revealed that the full model explains only 3.3% more variance in negative affect, indicating that either model does well in predicting the outcome. The comparison reveals the full model to be of best fit of the data.</p>
+<p>The estimates suggest that for every point increase in negative affect conscientiousness predicted a decrease of -.69; meanwhile, every point increase predicted a SPP predicted a decrease of -0.22, and binary sex a decrease of -.51.</p>
+<p>The predicted differences between the models suggest that the full model can predict up to a 1-point difference in negative affect which should be considered when interpreting the findings.</p>
+<p>Overall, we can conclude that although SPP does predict some difference in variance of negative affect of undergraduate student, other variables such as conscientiousness and sex also relate to it in a significant manner. Based on the information presented above we can conclude that SPP does not predict negative affect above and beyond binary sex and conscientiousness.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#H2</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">added.plot</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span>MPS.M, <span class="at">data=</span> WORKDATA, <span class="at">method =</span> <span class="st">"quadratic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#not a good fit so we do a multiple regression model</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>multiple_reg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span> MPS.M <span class="sc">+</span> <span class="fu">I</span>(TIPM.M<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(MPS.M<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>WORKDATA)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(multiple_reg_model, <span class="at">plot=</span><span class="st">"residuals"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Note: one or more of your variables has less than 5 values, yet they're treated as numeric.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#we do an added plot to confirm if the control variables to plot our full model </span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">added.plot</span>(PANAS.M<span class="sc">~</span>MPS.M, <span class="at">data =</span> WORKDATA, <span class="at">lm_formula =</span> PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span> TIPM.M)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="PSYR6003ASSIGNMENT2_JFP_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Do model comparison</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>reduced <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span> <span class="fu">I</span>(TIPM.M<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span><span class="fu">I</span>(MPS.M<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data=</span>WORKDATA)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>full <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span> MPS.M <span class="sc">+</span> <span class="fu">I</span>(TIPM.M<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span> <span class="fu">I</span>(MPS.M<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data=</span>WORKDATA)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#compare the models</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">model.comparison</span>(reduced, full) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$statistics
+           aic     bic bayes.factor     p   rsq
+reduced 333.78 348.156        6.297 0.055 0.266
+full    331.71 351.836        0.159       0.299
+
+$predicted_differences
+   0%   25%   50%   75%  100% 
+0.000 0.037 0.110 0.167 1.007 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Estimates</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimates</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model R squared:
+0.299 (0.17, 0.43)
+
+Semi-Partial R squared:
+ sex_binary      TIPM.M       MPS.M I(TIPM.M^2)  I(MPS.M^2) 
+      0.025       0.159       0.084       0.013       0.017 
+
+
+Estimates for Numeric Variables = 
+    variables estimate lower upper std.estimate std.lower std.upper
+1 (Intercept)     4.92  2.99  6.85         0.00      0.00      0.00
+2  sex_binary    -0.51 -0.92 -0.10        -0.18     -0.33     -0.03
+3      TIPM.M    -0.74 -1.40 -0.09        -0.98     -1.85     -0.11
+4       MPS.M    -0.28 -0.81  0.26        -0.41     -1.19      0.38
+5 I(TIPM.M^2)     0.05 -0.02  0.12         0.65     -0.22      1.51
+6  I(MPS.M^2)     0.06 -0.01  0.12         0.70     -0.08      1.48</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summary</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = PANAS.M ~ sex_binary + TIPM.M + MPS.M + I(TIPM.M^2) + 
+    I(MPS.M^2), data = WORKDATA)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6404 -0.5902 -0.1282  0.4588  2.4429 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  4.92236    0.98588   4.993 1.95e-06 ***
+sex_binary  -0.50840    0.21084  -2.411   0.0174 *  
+TIPM.M      -0.74410    0.33587  -2.215   0.0285 *  
+MPS.M       -0.27738    0.27297  -1.016   0.3115    
+I(TIPM.M^2)  0.05078    0.03483   1.458   0.1474    
+I(MPS.M^2)   0.05570    0.03154   1.766   0.0798 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8329 on 125 degrees of freedom
+Multiple R-squared:  0.2992,    Adjusted R-squared:  0.2712 
+F-statistic: 10.68 on 5 and 125 DF,  p-value: 1.475e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Table to report</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>basic.reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS.M<span class="sc">~</span>sex_binary<span class="sc">+</span>TIPM.M<span class="sc">+</span> MPS.M <span class="sc">+</span> <span class="fu">I</span>(TIPM.M<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span> <span class="fu">I</span>(MPS.M<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data=</span>WORKDATA,<span class="at">filename=</span><span class="st">"Table_3.doc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: In lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) :
+ extra argument 'filename' will be disregarded</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apa.reg.table</span>(basic.reg, <span class="at">table.number =</span> <span class="dv">3</span>, <span class="at">filename=</span><span class="st">"Table_3.doc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table 3 
+
+Regression results using PANAS.M as the criterion
+ 
+
+   Predictor      b       b_95%_CI  beta    beta_95%_CI sr2  sr2_95%_CI      r
+ (Intercept) 4.92**   [2.97, 6.87]                                            
+  sex_binary -0.51* [-0.93, -0.09] -0.18 [-0.34, -0.03] .03 [-.02, .08]   -.16
+      TIPM.M -0.74* [-1.41, -0.08] -0.98 [-1.86, -0.10] .03 [-.02, .07] -.37**
+       MPS.M  -0.28  [-0.82, 0.26] -0.41  [-1.20, 0.38] .01 [-.02, .03]  .37**
+ I(TIPM.M^2)   0.05  [-0.02, 0.12]  0.65  [-0.23, 1.52] .01 [-.02, .04] -.34**
+  I(MPS.M^2)   0.06  [-0.01, 0.12]  0.70  [-0.08, 1.49] .02 [-.02, .06]  .39**
+                                                                              
+                                                                              
+                                                                              
+             Fit
+                
+                
+                
+                
+                
+                
+     R2 = .299**
+ 95% CI[.15,.39]
+                
+
+Note. A significant b-weight indicates the beta-weight and semi-partial correlation are also significant.
+b represents unstandardized regression weights. beta indicates the standardized regression weights. 
+sr2 represents the semi-partial correlation squared. r represents the zero-order correlation.
+Square brackets are used to enclose the lower and upper limits of a confidence interval.
+* indicates p &lt; .05. ** indicates p &lt; .01.
+ </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table3) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country      year rate             
+  &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            
+1 Afghanistan  1999 745/19987071     
+2 Afghanistan  2000 2666/20595360    
+3 Brazil       1999 37737/172006362  
+4 Brazil       2000 80488/174504898  
+5 China        1999 212258/1272915272
+6 China        2000 213766/1280428583</code></pre>
+</div>
+</div>
+<p><strong>References:</strong></p>
+<p>Fife, D. (2022). Flexplot: Graphically-based data analysis.&nbsp;<em>Psychological Methods, 27</em>(4), 477–496.&nbsp;https://doi.org/10.1037/met0000424</p>
+<p>Pedersen T (2024).&nbsp;<em>patchwork: The Composer of Plots</em>. R package version 1.2.0.9000, https://github.com/thomasp85/patchwork,&nbsp;<a href="https://patchwork.data-imaginist.com" class="uri">https://patchwork.data-imaginist.com</a>.</p>
+<p>&nbsp; Stanley D (2021). _apaTables: Create American Psychological Association (APA) Style Tables_.&nbsp; R package version 2.0.8, &lt;https://CRAN.R-project.org/package=apaTables&gt;.</p>
+<p>Venables WN, Ripley BD (2002).&nbsp;Modern Applied Statistics with S, Fourth edition. Springer, New York. ISBN 0-387-95457-0,&nbsp;<u>https://www.stats.ox.ac.uk/pub/MASS4/.</u>&nbsp;</p>
+<p>Wickham, H.,&nbsp;Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R.,&nbsp;Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K.,&nbsp;Ooms, J., Robinson, D., Seidel, D. P.,&nbsp;Spinu, V., Takahashi, K., Vaughan, D., Wilke, C., Woo, K., &amp;&nbsp;Yutani, H. (2019). Welcome to the&nbsp;tidyverse.&nbsp;<em>Journal of&nbsp;Open Source&nbsp;Software, 4</em>(43), 1686.&nbsp;<u>https://doi.org/10.21105/joss.01686</u></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
